@@ -1,103 +1,107 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import NewsItem from './NewsItem'
+import Spinner from './Spinner'
 
-export default function News() {
-    let article = [
-        {
-            "source": {
-                "id": "reuters",
-                "name": "Reuters"
-            },
-            "author": "Reuters.com",
-            "title": "North Korea vows military strike if any provocation, fires artillery rounds - Reuters.com",
-            "description": " ",
-            "url": "https://www.reuters.com/world/asia-pacific/north-koreas-kim-yo-jong-vows-immediate-response-provocation-kcna-2024-01-07/",
-            "urlToImage": " ",
-            "publishedAt": "2024-01-07T10:38:00Z",
-            "content": " "
-        },
-        {
-            "source": {
-                "id": "the-washington-post",
-                "name": "The Washington Post"
-            },
-            "author": "Niha Masih, Jennifer Hassan, John Hudson, Yasmeen Abutaleb, Shane Harris",
-            "title": "Israel-Gaza war live updates: Blinken in Middle East as U.S. seeks to avert war between Israel and Hezbollah - The Washington Post",
-            "description": "The secretary of state’s tour is part of the U.S. effort to avoid regional escalation, in particular a war between Israel and the militant group in Lebanon.",
-            "url": "https://www.washingtonpost.com/world/2024/01/07/israel-hamas-war-gaza-news-palestine/",
-            "urlToImage": "https://www.washingtonpost.com/wp-apps/imrs.php?src=https://d1i4t8bqe7zgj6.cloudfront.net/01-07-2024/t_542a740c3bec4840811b74a7f8030823_name_UG3Y5CBFJHTU37IQY74PED45AE.jpg&w=1440",
-            "publishedAt": "2024-01-07T09:56:15Z",
-            "content": " "
-        },
-        {
-            "source": {
-                "id": " ",
-                "name": "SciTechDaily"
-            },
-            "author": " ",
-            "title": "Astronomical Illusions: New Images Reveal What Neptune and Uranus Really Look Like - SciTechDaily",
-            "description": "Recent research led by Professor Patrick Irwin shows that Neptune and Uranus are both a similar shade of greenish-blue, challenging previous perceptions of their colors. The study used modern telescopic data to correct historical color inaccuracies and explai…",
-            "url": "https://scitechdaily.com/astronomical-illusions-new-images-reveal-what-neptune-and-uranus-really-look-like/",
-            "urlToImage": "https://scitechdaily.com/images/Neptune-and-Uranus-True-Colors.jpg",
-            "publishedAt": "2024-01-07T09:42:41Z",
-            "content": "A study reveals Neptune and Uranus are both greenish-blue, not the deep azure and pale cyan previously believed. Modern telescope data was used to correct these historical color misrepresentations. C… [+8848 chars]"
-        },
-        {
-            "source": {
-                "id": " ",
-                "name": "Cointelegraph"
-            },
-            "author": "Cointelegraph",
-            "title": "Bitcoin ETFs will solve unit bias psychology, says VanEck adviser - Cointelegraph",
-            "description": " ",
-            "url": "https://cointelegraph.com/news/bitcoin-etf-unit-bias-psychology-vaneck",
-            "urlToImage": " ",
-            "publishedAt": "2024-01-07T08:43:06Z",
-            "content": " "
+export default function News(props) {
+
+
+    const [content, setContent] = useState(
+        []
+    )
+    const [totalArticle, settotalArticle] = useState()
+
+    const [page, setPage] = useState(1)
+
+    const[loader,setLoader]=useState(true);
+
+    const url = `https://newsapi.org/v2/top-headlines?category=${props.category}&country=${props.country}&apiKey=dad08aa90896484a810614e10e31a7f9&page=${page}&pageSize=${props.pagesize}`
+ const Noimage="https://media.istockphoto.com/id/1472933890/vector/no-image-vector-symbol-missing-available-icon-no-gallery-for-this-moment-placeholder.jpg?s=612x612&w=0&k=20&c=Rdn-lecwAj8ciQEccm0Ep2RX50FCuUJOaEM8qQjiLL0="
+
+    const handleNextClick = async () => {
+        if (page > Math.ceil(totalArticle / 20)) {
+            console.log("end")
         }
-    ]
-    const [state] = useState({
-        article: article,
-        loading: false
 
-    })
+        else {
+            const url = `https://newsapi.org/v2/top-headlines?category=${props.category}&country=${props.country}&apiKey=dad08aa90896484a810614e10e31a7f9&page=${page}&pageSize=${props.pagesize}`
 
-   const url="https://newsapi.org/v2/top-headlines?country=in&apiKey=dad08aa90896484a810614e10e31a7f9"
-  
- 
-    const url1 = "https://jsonplaceholder.typicode.com/users";
-    const [data, setData] = useState( {article: article,
-        loading: false});
-  
+            setTimeout(() => {
+                setLoader(false);
+            }, 2000);
+            fetch(url)
+                .then(async (result) => {
+                    // setLoader(true)
+                    let res = await result.json()
+               
+                    setContent(res.articles)
+                    settotalArticle(res.totalResults)
+                    // setLoader(false)
+                    setPage(page + 1)
+                })
+                .catch(err => console.log(err))
 
-  console.log(setData)
-  
+          
+          
+        }
+    }
+    const handlePreviousClick = async () => {
+        const url = `https://newsapi.org/v2/top-headlines?category=${props.category}&country=${props.country}&apiKey=dad08aa90896484a810614e10e31a7f9&page=${page}&pageSize=20`
+        setTimeout(() => {
+            setLoader(false);
+        }, 2000);
+        fetch(url)
+            .then(async (result) => {
+                // setLoader(true)
+                let res = await result.json()
+                setContent(res.articles)
+                // setLoader(false)
+                setPage(page - 1)
+            })
+            .catch(err => console.log(err))
+
+       
+
+    }
+
+
+
     useEffect(() => {
 
+        setTimeout(() => {
+            setLoader(false);
+        }, 2000);
         fetch(url)
-        .then((res) => res.json())
-        .then((d) => setData(d))
-        .catch(err=>console.log(err))
+            .then(async (result) => {
+                // setLoader(true)
+                let res = await result.json()
+                setContent(res.articles)
+                // setLoader(false)
+            })
+          
+            .catch(err => console.log(err))
+         
     }, []);
-  
-    
+
+
     return (
         <div>
+            <h2 className="text-center" style={{ marginTop: "20px"}}>NewsScape-Top Headline</h2>
+       
+           {loader && <Spinner/>}
             <div className="container">
 
-                {/* <div className="row ">
-                  
-                      {data.map((element) => { 
+                <div className="row "> 
+
+                    {!loader&& content.map((element) => {
                         return <div className="col-md-4 my-3" key={element.url}>
-                            <NewsItem  title={element.title? element.title.slice(1,45):" "}description={ element.description? element.description.slice(0,88):""}imageUrl={element.urlToImage} newsUrl={element.url} />
+                            <NewsItem title={element.title ? element.title.slice(0, 45) : " "} description={element.description ? element.description.slice(0, 88) : ""} imageUrl={element.urlToImage?element.urlToImage:Noimage} newsUrl={element.url} />
                         </div>
                     })}
-                </div> */}
-                <ul>
-                    {data.article.map((list,index)=>(
-                     <li key={index}>{list.url}</li>   
-                   ) )}
-                </ul>
+                </div>
+                <div className="d-flex justify-content-between">
+                    <button className="btn btn-dark" type='button' onClick={handlePreviousClick} disabled={page <= 1}>&larr;Previous</button>
+                    <button className="btn btn-dark" type='button' onClick={handleNextClick} disabled={page > Math.ceil(totalArticle / 20)}>Next &rarr; </button>
+                </div>
             </div>
         </div>
     )

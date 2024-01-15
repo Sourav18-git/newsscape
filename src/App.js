@@ -5,7 +5,7 @@ export default function App() {
   return (
   <>
   <Navbar/>
-  <News/>
+  <News pagesize="15" country="in" category="general" style={{}} />
   </>
   )
 }
