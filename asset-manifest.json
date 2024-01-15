@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/newsscape/static/css/main.e6c13ad2.css",
+    "main.js": "/newsscape/static/js/main.a40c859a.js",
+    "static/js/787.49e70dcc.chunk.js": "/newsscape/static/js/787.49e70dcc.chunk.js",
+    "static/media/loading.gif": "/newsscape/static/media/loading.223e134429a82b93f798.gif",
+    "index.html": "/newsscape/index.html",
+    "main.e6c13ad2.css.map": "/newsscape/static/css/main.e6c13ad2.css.map",
+    "main.a40c859a.js.map": "/newsscape/static/js/main.a40c859a.js.map",
+    "787.49e70dcc.chunk.js.map": "/newsscape/static/js/787.49e70dcc.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e6c13ad2.css",
+    "static/js/main.a40c859a.js"
+  ]
+}
