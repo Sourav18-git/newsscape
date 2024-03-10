@@ -7,43 +7,43 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
-import About from './components/About';
+// import About from './components/About';
 
-const router = createBrowserRouter([
+const router  = createBrowserRouter ([
   {
     path: "/",
     element: <HomePage />,
     children: [
       {
-        path: "/about",
-        element: <About />,
+        path: "/home",
+        element: <News pagesize="15" key={Math.random()} country="in" category="General" style={{}} />,
       },
       {
         path: "/sports",
-        element: <News pagesize="15" country="in" category="sports" style={{}} />,
+        element: <News pagesize="15" key={Math.random()} country="in" category="Sports" style={{}} />,
       },
       {
         path: "/entertainment",
-        element: <News pagesize="15" country="in" category="entertainment" style={{}} />,
+        element: <News pagesize="15" key={Math.random()} country="in" category="Entertainment" style={{}} />,
       },
       {
         path: "/General",
-        element: <News pagesize="15" country="in" category="General" style={{}} />,
+        element: <News pagesize="15" key={Math.random()} country="in" category="General" style={{}} />,
       },
       {
         path: "/science",
-        element: <News pagesize="15" country="in" category="science" style={{}} />,
+        element: <News pagesize="15" key={Math.random()} country="in" category="Science" style={{}} />,
       },
       {
         path: "/technology",
-        element: <News pagesize="15" country="in" category="technology" style={{}} />,
+        element: <News pagesize="15" key={Math.random()} country="in" category="Technology" style={{}} />,
       },
       {
         path: "/health",
-        element: <News pagesize="15" country="in" category="health" style={{}} />,
+        element: <News pagesize="15" key={Math.random()} country="in" category="Health" style={{}} />,
       },{
         path: "/business",
-        element: <News pagesize="15" country="in" category="business" style={{}} />,
+        element: <News pagesize="15" key={Math.random()} country="in" category="Business" style={{}} />,
       },
     ],
   },
